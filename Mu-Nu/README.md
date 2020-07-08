@@ -14,7 +14,7 @@ Where do other recursive structures fall on this spectrum from “least” to �
 data LeastList a = Nil | Cons a !(LeastList a)
 data GreatestList a = Nil | Cons a (GreatestList a)
 
-data XNor a b = Neither | Both a b
+data XNor a b = Neither | Both a !b
 
 type LeastList' a    = Mu (XNor a)
 type GreatestList' a = Nu (XNor a)
