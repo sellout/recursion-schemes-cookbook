@@ -1,0 +1,89 @@
+#+title: Modular Induction & Coinduction
+
+* Part the First
+
+** Reintroducing Recursion
+
+Here is just everything about recursion as you usually know it
+
+This chapter is probably mostly a review for you. But it serves to get us all on
+the same page with concepts and terminology. Unfortunately, this book also
+involves "unlearning" much of this. Perhaps some day there we can write a book
+that introduces the modularity described in this book directly, rather than
+having to de-program everyone.
+
+So, what /is/ recursion? 
+
+As an industry, we often contrast recursion with iteration, but recursion subsumes
+iteration. Syntactically, many languages have a special syntax for iteration
+constructs, but there is nothing that prevents us from implementing that syntax
+with recursion.
+
+So, what are some recursive (or iterative) things  you can think of?
+
+- applying some function to every element in a list
+- 
+
+*** Exercises
+
+- mostly simple, at the end of each section
+- last section introduces the "project"
+
+** Generalized traversals
+
+Uniplate style, introduces traversals without yet getting into algebras and pattern functors.
+
+** Guaranteed structure
+
+Uniplate lets functions dig arbitrarily deep into a tree, and they pair each
+element with a list of child results (~para~?), so it's quite possible that the
+list of results doesn't correspond to the children of the current node. How do
+we fix this?
+
+This section probably also /separates/ recursion from the business logic.
+
+** total traversals
+
+This section maybe eliminates recursion altogether
+
+** little pieces
+
+- introduce modularity via `Cofree`
+
+- introduce fusion via `zygo`
+
+*** Examples
+
+Breaking down some of the more complicated examples using zygomorphism
+
+** top-down data passing
+
+This is the reason to not introduce unfolding earlier -- people often think of
+folds as passing data bottom-up, and unfolds as passing data top-down, but you
+can do either with either, and the /important/ distinction is that folds are
+finite, so even if you want to pass data top-down, if you want to keep things
+finite, you do it with a fold.
+
+But in this case, the carrier of the algebra is a function. E.g., ~f (a -> b) ->
+(a -> b)~, where ~b~ is the usual bottom-up data passing and ~a~ is the top-down
+data passing.
+
+*NB*: We should try to be consistent with the way we talk about "top-down" and
+"bottom-up", because we also use words like "root" and "branches" of a
+"tree". In nature, trees grow up with roots at the bottom, but when we talk
+about "bottom-up", that means "from the leaves toward the root", which is the
+opposite of what "bottom" and "up" mean in nature. So we have to decide on a
+consistent directional metaphor (which is sorely lacking in the field as it is).
+
+* Advanced Topics
+
+** streaming
+
+Probably don't talk about unfolding /at all/ before this? I think it's too easy
+for people to use unfolds when they should stick with folds.
+
+** graphs
+
+*** acyclic vs cyclic
+
+*** (multi-)rooted

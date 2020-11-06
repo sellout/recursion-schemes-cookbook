@@ -1,0 +1,17 @@
+- Valentin Kasas (https://github.com/vil1/recursion-schemes-cookbook/) -- jumpstarted the book
+- Fintan Halpenny (https://github.com/FintanH) -- cowrote with me
+
+- Rob Norris -- so many discussions and support
+- Kris Nuttycombe -- same
+
+
+* inspirational works
+
+- Seven Sketches in Compositionality
+- Lisp in Small Pieces
+- The [Little|_] [Schemer|_]
+  - *Little* *Schemer*
+  - Seasoned *Schemer*
+  - Reasoned *Schemer*
+  - *Little* Prover
+  - *Little* Typer
