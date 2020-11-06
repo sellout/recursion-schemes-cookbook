@@ -22,7 +22,7 @@ with recursion.
 So, what are some recursive (or iterative) things  you can think of?
 
 - applying some function to every element in a list
-- 
+- refining a result repeatedly, until it's stable enough
 
 *** Exercises
 
@@ -52,28 +52,60 @@ This section maybe eliminates recursion altogether
 
 - introduce fusion via `zygo`
 
+** beautiful folds
+
+- getting away from writing algebras explicitly as algebras, this is where the "proto-algebras" section comes in
+- write obvious functions, then convert them into algebras when applying the fold
+- introduce the general vocabulary of "algebra transformers" (e.g., `annotateAlgebra`, `zipAlgebras`)
+
+Maybe before this chapter, but we need to address the naming problem with
+pattern functors and algebras. We're used to naming folds, like `filter`, but
+for maximum reusability and efficiency, we want to expose the underlying
+proto-algebra that embodies a single step of `filter`. That, in itself, isn't
+`filter`, but what is it? Sometimes these things have reasonable names, but even
+when they do, their single-step name isn't necessarily related to their purpose
+in a fold. And often a proto-algebra can be used multiple ways in a fold, with
+distinct purposes -- how do we try to name things well so that the name at least
+hints at its purpose (comments can always be used to add detail to those hints).
+
+One of the things we /shouldn't/ do is have ~Foo ~ Fix FooF~. For
+pattern-functors, I have two naming styles, one is to name the functor as you
+would have previously named the fixed point, like ~data Expr a~ and then the
+tree is ~Fix Expr~. This makes especially good sense when you do graph-like
+stuff or assignment-like stuff, where you have like ~[Expr Var]~, where each
+expression is atomic, referring only to variables previously assigned, never
+having nested expressions. The other pattern-functor naming style is to name the
+functor very explicitly, which is useful when it's particularly generic, e.g.,
+
+#+begin_src haskell
+-- read as @a `AndMaybe` b@
+data AndMaybe a b
+  = Only a
+  | Indeed a b
+
+type NonEmpty a = Mu (AndMaybe a)
+#+end_src
+
+For (proto-)algebras, I lean toward that second style as much as possible, this
+is because I find algebras are much more flexible. They may serve many different
+purposes in a fold, and so leaving the name more ambiguous avoids pinning down
+what they're "supposed to" be used for.
+
 *** Examples
 
 Breaking down some of the more complicated examples using zygomorphism
 
-** top-down data passing
+** leafward data passing
 
 This is the reason to not introduce unfolding earlier -- people often think of
-folds as passing data bottom-up, and unfolds as passing data top-down, but you
+folds as passing data rootward, and unfolds as passing data leafward, but you
 can do either with either, and the /important/ distinction is that folds are
-finite, so even if you want to pass data top-down, if you want to keep things
+finite, so even if you want to pass data leafward, if you want to keep things
 finite, you do it with a fold.
 
 But in this case, the carrier of the algebra is a function. E.g., ~f (a -> b) ->
-(a -> b)~, where ~b~ is the usual bottom-up data passing and ~a~ is the top-down
+(a -> b)~, where ~b~ is the usual rootward data passing and ~a~ is the leafward
 data passing.
-
-*NB*: We should try to be consistent with the way we talk about "top-down" and
-"bottom-up", because we also use words like "root" and "branches" of a
-"tree". In nature, trees grow up with roots at the bottom, but when we talk
-about "bottom-up", that means "from the leaves toward the root", which is the
-opposite of what "bottom" and "up" mean in nature. So we have to decide on a
-consistent directional metaphor (which is sorely lacking in the field as it is).
 
 * Advanced Topics
 
@@ -82,8 +114,18 @@ consistent directional metaphor (which is sorely lacking in the field as it is).
 Probably don't talk about unfolding /at all/ before this? I think it's too easy
 for people to use unfolds when they should stick with folds.
 
+- [[http://www.cs.ox.ac.uk/jeremy.gibbons/publications/metamorphisms-scp.pdf][metamorphisms]]
+
 ** graphs
+
+- [[https://github.com/snowleopard/alga-paper][algebraic graphs]]
 
 *** acyclic vs cyclic
 
+- [[https://ku-fpg.github.io/files/Gill-09-TypeSafeReification.pdf][Type-Safe Observable Sharing]]
+
 *** (multi-)rooted
+
+** connection to category theory
+
+Ziyang's blog post fits here.
