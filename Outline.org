@@ -42,27 +42,78 @@ we fix this?
 
 This section probably also /separates/ recursion from the business logic.
 
+* Practical application
+
+I'm not quite sure where to split sections between "part the first" and
+"practical application", but the conceptual distinction we want to make is that
+we're basically done justifying recursion schemes, and are now on to using them
+well. So the balance of examples and exercises moves from things we don't
+actually recommend (direct recursion, uniplate) to things we do.
+
+Along with that means some content about how to transition existing code bases
+(without recursion schemes) to ones that use recursion schemes.
+
+** extending existing code
+
+(this is the use case for [[https://hackage.haskell.org/package/yaya-0.3.2.0/docs/Yaya-Retrofit.html][~Yaya.Retrofit~]])
+
+- define a pattern functor parallel to your existing type
+- define ~Steppable~ instances -- an isomorphism between the existing type and
+  the pattern functor
+- define (~Co~)~Recursive~ instances using the default direct recursion
+  implementations (~algebra . fmap (cata algebra) . project~)
+
+Yaya's ~extractPatternFunctor~ can do this automatically in some cases.
+
+now you can define new operations using algebras and folds, and eventually you
+can replace
+
+#+begin_src haskell
+data PatternStructure = ...
+
+data OriginalStructure = ...
+
+instance Projectable OriginalStructure PatternStructure where ...
+instance Steppable OriginalStructure PatternStructure where ...
+instance Recursive OriginalStructure PatternStructure where ...
+instance Corecursive OriginalStructure PatternStructure where ...
+#+end_src
+
+with
+
+#+begin_src haskell
+data PatternStructure = ...
+
+type OriginalStructure = Mu PatternStructure
+#+end_src
+
+An alternative in some cases is to start by replacing the original type with ~Mu
+PatternStructure~, but defining the alias like ~type OriginalStructure =
+PatternStructure (Mu PatternStructure)~. This gives you recursion schemes more
+completely up-front, but avoids having to change code that only does shallow
+pattern matching.
+
 ** total traversals
 
 This section maybe eliminates recursion altogether
 
 ** little pieces
 
-- introduce modularity via `Cofree`
+- introduce modularity via ~Cofree~
 
-- introduce fusion via `zygo`
+- introduce fusion via ~zygo~
 
 ** beautiful folds
 
 - getting away from writing algebras explicitly as algebras, this is where the "proto-algebras" section comes in
 - write obvious functions, then convert them into algebras when applying the fold
-- introduce the general vocabulary of "algebra transformers" (e.g., `annotateAlgebra`, `zipAlgebras`)
+- introduce the general vocabulary of "algebra transformers" (e.g., ~annotateAlgebra~, ~zipAlgebras~)
 
 Maybe before this chapter, but we need to address the naming problem with
-pattern functors and algebras. We're used to naming folds, like `filter`, but
+pattern functors and algebras. We're used to naming folds, like ~filter~, but
 for maximum reusability and efficiency, we want to expose the underlying
-proto-algebra that embodies a single step of `filter`. That, in itself, isn't
-`filter`, but what is it? Sometimes these things have reasonable names, but even
+proto-algebra that embodies a single step of ~filter~. That, in itself, isn't
+~filter~, but what is it? Sometimes these things have reasonable names, but even
 when they do, their single-step name isn't necessarily related to their purpose
 in a fold. And often a proto-algebra can be used multiple ways in a fold, with
 distinct purposes -- how do we try to name things well so that the name at least
