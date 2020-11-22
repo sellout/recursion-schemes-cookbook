@@ -18,7 +18,7 @@ The same technique can be used as above to avoid this problem – using the “e
 
 ## Be Aware
 
-Even though `((->) attributes)` is itself a monad, you can’t use `AlgebraM (Reader attributes) f (Nu g)`. While both result in `attributes -> Nu g` after folding, `AlgebraM` (with `cataM`) will result in every node being passed the same value for `attributes` that you pass at the top level. This is simply a consequence of the general way a monad can be extracted over the fold. To be able to control the values for `attributes`, the function must be managed explicitly in the algebra, which is what `Algebra f (attributes -> Nu g)` requires.
+Even though `((->) attributes)` is itself a monad, you can’t use `AlgebraM (Reader attributes) f (Nu g)` in this particular case. While both result in `attributes -> Nu g` after folding, `AlgebraM` (with `cataM`) will result in every node being passed the same value for `attributes` that you pass at the top level. This is simply a consequence of the general way a monad can be extracted over the fold. To be able to control the values for `attributes`, the function must be managed explicitly in the algebra, which is what `Algebra f (attributes -> Nu g)` requires.
 
 ## Just another word for function
 
