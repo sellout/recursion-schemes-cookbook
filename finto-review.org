@@ -1,0 +1,42 @@
+
+* Introduction currently /isn't/.
+* "what's the essence of recursion schemes"
+  * exploring problem & discovering algebra
+  * avoiding need to think about recursion
+
+"/n/ sketches in modularity"
+
+how to make the book itself "recursive"
+
+
+
+f (Fix f)
+f a
+
+- separation of recursion (simplify what you're thinking about)
+- 
+- modularize your problems
+
+- start with "Uniplate" /then/ motivate 
+- lots of exercises
+  - small ones? larger project?
+
+Chapter 1: "Reintroducing Recursion"
+- write things like fib / etc.
+- end with examples using like Fix (or ~fix~?)
+
+- series of improving version of the same "project"
+
+
+What are good projects?
+- compilers (already too pigeonholed)
+- file system
+- schemas / serialization -- schema migration
+
+for next time
+- order of introducing concepts
+- what kinds of exercises / projects to have in the book
+- maybe start on /real/ introductory chapter
+
+
+

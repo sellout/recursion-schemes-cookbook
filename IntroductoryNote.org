@@ -1,0 +1,22 @@
+#+title: A Note on Terminology
+
+The terminology used around trees (starting with the word "trees") in software
+is terribly inconsistent.
+
+** needs some diagrams **
+- a tree
+- an org chart
+
+In nature, trees grow up with roots at the bottom, but when we talk about
+"bottom-up", that means "from the leaves toward the root", which is the opposite
+of what "bottom" and "up" mean in nature.
+
+The origins in top-down and bottom-up probably lie in organizational structure,
+where there is a single CEO at "the top", and then a "branching" structure
+through various levels of managers until you get individual contributors at the
+"leaves".
+
+To brush all of this aside, in this book we'll endeavor to use an
+internally-consistent set of terms. We'll keep the tree metaphor (since it's so
+strong in software), but lose the directionality. Instead, we'll say "leafward"
+and "rootward" (mapping to "bottom-up" and "top-down, respectively").
